@@ -1,3 +1,5 @@
+require('./geo-json-task.js');
+
 const gulp = require('gulp');
 const browserify = require('browserify');
 const source = require('vinyl-source-stream');
@@ -8,16 +10,16 @@ const inject = require('gulp-inject');
 const sequence = require('gulp-sequence');
 const notify = require('gulp-notify');
 const plumber = require('gulp-plumber');
+const del = require('del');
 
-const THIRD_PARTY = ['d3'];
-
+const THIRD_PARTY = ['d3', 'lodash'];
 
 const CONFIG = {
     dest: 'dist',
     entry: 'app/app.js'
 };
 
-gulp.task('default', sequence(['sass', 'build:app', 'build:vendor', 'watch'], 'index', 'connect'));
+gulp.task('default', sequence('generate-geo.json', ['sass', 'build:app', 'build:vendor', 'watch'], 'index', 'connect'));
 
 gulp.task('watch', function () {
     gulp.watch('app/**/*.scss', ['sass']);
@@ -25,9 +27,8 @@ gulp.task('watch', function () {
     gulp.watch(`${CONFIG.dest}/**/*.*`).on('change', browserSync.reload);
 });
 
-gulp.task('clean', function (done) {
-    del(`${CONFIG.dest}/**/*.*`);
-    done();
+gulp.task('clean', function () {
+    return del.sync(`${CONFIG.dest}/**/*.*`);
 });
 
 gulp.task('sass', function () {
@@ -43,7 +44,7 @@ gulp.task('connect', function () {
         server: {
             baseDir: './'
         }
-    })
+    });
 });
 
 gulp.task('index', function () {
