@@ -12,7 +12,8 @@ const notify = require('gulp-notify');
 const plumber = require('gulp-plumber');
 const del = require('del');
 
-const THIRD_PARTY = ['d3', 'lodash'];
+
+const THIRD_PARTY = ['d3', 'lodash', 'mapbox'];
 
 const CONFIG = {
     dest: 'dist',

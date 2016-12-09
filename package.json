@@ -31,6 +31,8 @@
   "dependencies": {
     "csvtojson": "^1.0.3",
     "d3": "^4.4.0",
-    "lodash": "^4.17.2"
+    "lodash": "^4.17.2",
+    "mapbox": "^1.0.0-beta5",
+    "mapbox-gl": "^0.28.0"
   }
 }
