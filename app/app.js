@@ -1,6 +1,8 @@
 'use strict';
 
-var telekomGeoJson = require('telekomCombined.json');
+var telekomGeoJson = require('./telekom_crm_msc_weekly.json');
+console.log(telekomGeoJson.data.features.length);
+console.log(telekomGeoJson.data.features[0]);
 
 var token = require('../mapboxtoken');
 mapboxgl.accessToken = token;
@@ -28,13 +30,17 @@ map.on('load', function () {
                 'stops': [[7, 2], [12, 7], [22, 180]]
             },
             'circle-color': {
-                property: 'PROPERTY_NAME',
+                property: 'age',
                 type: 'categorical',
                 stops: [
-                    ['PROPERTY_TYPE', '#000000']
+                    [[0, 18], '#ffffff'],
+                    [[19, 24], '#aaaaaa'],
+                    [[25, 33], '#888888'],
+                    [[34, 40], '#555555'],
+                    [[41, 65], '#222222']
                 ]
-            },
-            'circle-blur': 1
+            }
+            //'circle-blur': 3
         }
     });
 });
