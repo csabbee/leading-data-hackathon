@@ -5,9 +5,11 @@ var telekomGeoJson = require('telekomCombined.json');
 var token = require('../mapboxtoken');
 mapboxgl.accessToken = token;
 
+var mapStyle = 'mapbox://styles/seprus/ciwidpb5n00i52pmqxht7cad0';
+
 var map = new mapboxgl.Map({
     container: 'mapbox',
-    style: 'mapbox://styles/seprus/ciwiaqk4k00112qmqbu6t6dg1',
+    style: mapStyle,
     interactive: true,
     center: [19.0374, 47.4941],
     zoom: 8,
