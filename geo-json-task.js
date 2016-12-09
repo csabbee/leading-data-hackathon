@@ -8,7 +8,7 @@ var converterMsc = new Converter({});
 
 gulp.task('generate-geo.json', function (done) {
     getGeoJSON().then(geoJson => {
-        fs.writeFileSync('geojson.json', JSON.stringify(geoJson));
+        fs.writeFileSync('app/telekom_crm_msc_weekly.json', JSON.stringify(geoJson));
         done();
     });
 });
@@ -49,7 +49,24 @@ function toGeoJson(connectedJson) {
                 type: 'Point',
                 coordinates: [element.longitude, element.latitude]
             },
-            properties: _.omit(element, ['longitude', 'latitude'])
+            properties: {
+                timestamp: element.timestamp,
+                dataset: element.dataset,
+                zip: element.zip,
+                person: {
+                    age: element.age,
+                    id: element.subscriber,
+                    sex: element.sex
+                },
+                others: {
+                    arpu: element.arpu,
+                    magan: element.magan,
+                    magenta_1: element.magenta_1,
+                    sim_4g: element.sim_4g,
+                    type: element.type,
+                    uzleti: element.uzleti
+                }
+            }
         };
     });
 
