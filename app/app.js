@@ -2,7 +2,7 @@
 
 var telekomGeoJson = require('./telekom_crm_msc_weekly.json');
 console.log(telekomGeoJson.data.features.length);
-console.log(telekomGeoJson.data.features[0]);
+console.log(telekomGeoJson.data.features[0].properties);
 
 var token = require('../mapboxtoken');
 mapboxgl.accessToken = token;
@@ -15,15 +15,16 @@ var map = new mapboxgl.Map({
     interactive: true,
     center: [19.0374, 47.4941],
     zoom: 8,
+    minZoom: 6,
     hash: true
 });
 
 map.on('load', function () {
-    map.addSource('telekom', telekomGeoJson);
+    map.addSource('telekom_crm_msc_weekly', telekomGeoJson);
     map.addLayer({
         'id': 'telekom',
         'type': 'circle',
-        'source': 'telekom',
+        'source': 'telekom_crm_msc_weekly',
         'paint': {
             'circle-radius': {
                 'base': 1.75,
@@ -31,13 +32,13 @@ map.on('load', function () {
             },
             'circle-color': {
                 property: 'age',
-                type: 'categorical',
+                type: 'exponential',
                 stops: [
-                    [[0, 18], '#ffffff'],
-                    [[19, 24], '#aaaaaa'],
-                    [[25, 33], '#888888'],
-                    [[34, 40], '#555555'],
-                    [[41, 65], '#222222']
+                    [18, '#00FF66'],
+                    [24, '#00FF99'],
+                    [33, '#00FFCC'],
+                    [40, '#3399CC'],
+                    [65, '#006699']
                 ]
             }
             //'circle-blur': 3
