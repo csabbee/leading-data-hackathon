@@ -10,15 +10,18 @@ appModule.component('telekomApp', {
     controller: TelekomAppController
 });
 
-function TelekomAppController() {
+TelekomAppController.$inject = ['$timeout'];
+
+function TelekomAppController($timeout) {
     this.geojson = require('./telekom_crm_msc_weekly.json');
     console.log(this.geojson.data.features.length);
     console.log(this.geojson.data.features[0].properties);
 
-    this.filterData = function () {
-        console.log('asdasd');
+    this.filter = ['all'];
+    this.updateFilter = function (newFilter) {
+        this.filter = newFilter
     }
 }
 
 require('./mapbox.component.js').initComponent(appModule);
-require('./menu/menu.component.js').initComponent(appModule);
+//require('./menu/menu.component.js').initComponent(appModule);

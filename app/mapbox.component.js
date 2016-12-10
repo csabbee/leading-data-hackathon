@@ -12,7 +12,8 @@ function initComponent(appModule) {
             parent: '^telekomApp'
         },
         bindings: {
-            geojson: '<'
+            geojson: '<',
+            filter: '<'
         }
     });
 
@@ -59,15 +60,13 @@ function initComponent(appModule) {
                 }
             });
 
-            document.addEventListener('keyup', function (e) {
-                var key = parseInt(e.key);
-                if (_.includes([1, 2, 3, 4, 5, 6, 7], key)) {
-                    map.setFilter('telekom', ['==', 'day', key]);
-                } else if (key === 0) {
-                    map.setFilter('telekom', ['all']);
+            this.$onChanges = function (changes) {
+                if (changes.filter.previousValue !== 'UNINITIALIZED_VALUE') {
+                    map.setFilter('telekom', changes.filter.currentValue);
                 }
-            });
+            };
         });
     }
+
 }
 
