@@ -1,5 +1,6 @@
 require('./geo-json-task.js');
 require('./geojson-filter-task.js');
+require('./pharmacy-geo-gulp-task.js');
 
 const gulp = require('gulp');
 const browserify = require('browserify');
@@ -23,7 +24,7 @@ const CONFIG = {
 };
 
 gulp.task('default', sequence(
-    ['generate-geo.json', 'filter-geojson', 'templateCache'],
+    ['generate-geo.json', 'filter-geojson', 'templateCache', 'pharmacy-geo'],
     ['sass', 'build:app', 'build:vendor', 'watch'],
     'index',
     'connect'));
