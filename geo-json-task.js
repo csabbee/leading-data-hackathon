@@ -54,7 +54,7 @@ function toGeoJson(connectedJson) {
                 day: parseInt(dt.getDay() + 1),
                 hm: getHHMM(dt),
                 age: element.age,
-                sex: element.sex,
+                sex: element.sex/*,
                 unstable: {
                     timestamp: element.timestamp,
                     id: element.subscriber,
@@ -66,7 +66,7 @@ function toGeoJson(connectedJson) {
                     sim_4g: element.sim_4g,
                     type: element.type,
                     uzleti: element.uzleti
-                }
+                }*/
             }
         };
     });
