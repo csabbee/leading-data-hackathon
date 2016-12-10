@@ -20,6 +20,9 @@
         .gender-menu-container-element {
             padding-right: 15px;
             display: flex;
+            &.slider {
+                flex-direction: column;
+            }
 
             span {
                 padding-right: 3px;

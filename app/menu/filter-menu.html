@@ -9,24 +9,21 @@
     </div>
 </div>
 <div data-ng-if="$ctrl.selectedChart === 'age'" class="gender-menu-container">
-    <div class="gender-menu-container-element">
-        <span class="label label-danger">18-24</span>
-        <input type="checkbox" data-ng-model="$ctrl.age1824" class="checkbox-input">
+    <div class="gender-menu-container-element slider">
+        <span class="label label-danger">Min</span>
+        <input type="range"
+            data-ng-model="$ctrl.min"
+            data-ng-init="$ctrl.min = 0"
+            class="checkbox-input">
+        <div data-ng-bind="$ctrl.min"></div>
     </div>
-    <div class="gender-menu-container-element">
-        <span class="label label-primary">25-45</span>
-        <input type="checkbox" data-ng-model="$ctrl.age2545" class="checkbox-input">
+    <div class="gender-menu-container-element slider">
+        <span class="label label-primary">Max</span>
+        <input type="range"
+            data-ng-model="$ctrl.max"
+            data-ng-init="$ctrl.max = 100"
+            class="checkbox-input">
+        <div data-ng-bind="$ctrl.max"></div>
     </div>
-    <div class="gender-menu-container-element">
-        <span class="label label-primary">46-60</span>
-        <input type="checkbox" data-ng-model="$ctrl.age4660" class="checkbox-input">
-    </div>
-    <div class="gender-menu-container-element">
-        <span class="label label-primary">61-74</span>
-        <input type="checkbox" data-ng-model="$ctrl.age6174" class="checkbox-input">
-    </div>
-    <div class="gender-menu-container-element">
-        <span class="label label-primary">75-</span>
-        <input type="checkbox" data-ng-model="$ctrl.age75plus" class="checkbox-input">
-    </div>
+
 </div>

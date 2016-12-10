@@ -1,4 +1,5 @@
 'use strict';
+var _ = require('lodash');
 
 module.exports = {
     initComponent: initComponent
@@ -30,19 +31,21 @@ function initComponent(appModule) {
                 this.parent.updateFilter(['==', 'crm_sex', 'M']);
             }
         });
-        $scope.$watch('$ctrl.age1824', (newValue, oldValue) => {
+        $scope.$watch('$ctrl.min', (newValue, oldValue) => {
+            if (newValue > this.max) {
+                this.min = this.max - 1;
+            } else if (newValue) {
+                this.parent.updateFilter(['all', ['>=', 'crm_age', this.min], ['<=', 'crm_age', this.max]])
+            }
             // this.parent.updateFilter({ male: newValue });
         });
-        $scope.$watch('$ctrl.age2545', (newValue, oldValue) => {
-            // this.parent.updateFilter({ male: newValue });
-        });
-        $scope.$watch('$ctrl.age4660', (newValue, oldValue) => {
-            // this.parent.updateFilter({ male: newValue });
-        });
-        $scope.$watch('$ctrl.age6174', (newValue, oldValue) => {
-            // this.parent.updateFilter({ male: newValue });
-        });
-        $scope.$watch('$ctrl.age75plus', (newValue, oldValue) => {
+
+        $scope.$watch('$ctrl.max', (newValue, oldValue) => {
+            if (newValue < this.min) {
+                this.max = this.min + 1;
+            } else if (newValue) {
+                this.parent.updateFilter(['all', ['>=', 'crm_age', this.min], ['<=', 'crm_age', this.max]]);
+            }
             // this.parent.updateFilter({ male: newValue });
         });
 
