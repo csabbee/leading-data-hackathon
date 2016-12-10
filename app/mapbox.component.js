@@ -66,7 +66,11 @@ function initComponent(appModule) {
 
             this.$onChanges = function (changes) {
                 if (changes.filter.previousValue !== 'UNINITIALIZED_VALUE') {
-                    map.setFilter('telekom-filtered', changes.filter.currentValue);
+                    try {
+                        map.setFilter('telekom-filtered', changes.filter.currentValue);
+                    } catch (err) {
+                        console.log(err);
+                    }
                 }
             };
         });

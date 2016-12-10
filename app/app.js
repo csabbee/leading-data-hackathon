@@ -19,10 +19,13 @@ function TelekomAppController($timeout, filterService) {
 
     this.filter = filterService.filter;
     this.updateFilter = function (newFilter) {
-        this.filter = newFilter;
+        this.filter = newFilter
     }
 }
 
 require('./mapbox.component.js').initComponent(appModule);
 require('./menu/menu.component.js').initComponent(appModule);
 require('./menu/filter.service.js').initComponent(appModule);
+require('./menu/gender-chart.component.js').initComponent(appModule);
+require('./menu/filter-menu.component.js').initComponent(appModule);
+require('./menu/age-chart.component.js').initComponent(appModule);

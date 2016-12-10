@@ -29,7 +29,7 @@ gulp.task('default', sequence(
     'connect'));
 
 gulp.task('watch', function () {
-    gulp.watch('app/**/*.scss', ['sass']);
+    gulp.watch(['app/**/*.scss'], ['sass']);
     gulp.watch(['app/**/*.js'], ['build:app']);
     gulp.watch(['app/**/*.html'], ['templateCache']);
     gulp.watch('index.html').on('change', browserSync.reload);
