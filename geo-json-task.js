@@ -27,12 +27,27 @@ function getGeoJSON() {
         }));
     });
 
-    //var towerDistance = require('./data/towerDistance.json');
+    var distanceJson = require('./app/towerDistance.json');
     return Promise.all(promises)
         .then(([crm, msc, tac]) => {
-            return connectJsons(crm, msc, tac);
+            return connectJsons(crm, msc, tac, distanceJson);
         })
         .then(toGeoJson);
+}
+
+function connectJsons(crmJson, mscJson, tacJson, distanceJson) {
+    var combined = mscJson.map(msc => {
+        var crmMatch = _.find(crmJson, { subscriber: msc.subscriber });
+        var tacMatch = _.find(tacJson, { TAC: msc.TAC });
+        return _.merge({}, msc, crmMatch, tacMatch);
+    });
+    return combined.map(element => {
+        var towerMatch = _.find(distanceJson, {
+            id: element.subscriber,
+            timestamp: element.timestamp
+        });
+        return _.merge({}, combined, towerMatch);
+    });
 }
 
 function toGeoJson(connectedJson) {
@@ -60,6 +75,7 @@ function toGeoJson(connectedJson) {
                 msc_day: parseInt(dt.getDay() + 1),
                 msc_type: element.type,
                 // CRM data
+                crm_id: element.subscriber,
                 crm_sex: element.sex,
                 crm_age: element.age,
                 crm_zip: element.zip,
@@ -76,6 +92,9 @@ function toGeoJson(connectedJson) {
                 tac_os: element.os,
                 tac_year: element.year,
                 tac_isLte: element.lte,
+                // Tower data
+                twr_id: element.TowerId,
+                twr_nn_distance: element.distance,
                 // others
                 magenta_1: element.magenta_1,
                 sim_4g: element.sim_4g
@@ -88,12 +107,4 @@ function toGeoJson(connectedJson) {
     function getHHMM(dt) {
         return ('0' + dt.getHours()).slice(-2) + ':' + ('0' + dt.getMinutes()).slice(-2);
     }
-}
-
-function connectJsons(crmJson, mscJson, tacJson) {
-    return mscJson.map((msc, index) => {
-        var userData = _.find(crmJson, { subscriber: msc.subscriber });
-        var tacData = _.find(tacJson, { TAC: msc.TAC });
-        return _.merge({}, msc, userData, tacData);
-    });
 }
