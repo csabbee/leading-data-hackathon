@@ -42,6 +42,11 @@ map.on('load', function () {
                 ]
             }
             //'circle-blur': 3
-        }
+        },
+        'filter': ['==', 'day', 1]
+    });
+
+    document.addEventListener('keyup', function (e) {
+        map.setFilter('telekom', ['==', 'day', parseInt(e.key)]);
     });
 });
