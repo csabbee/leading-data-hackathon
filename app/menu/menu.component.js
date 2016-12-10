@@ -64,7 +64,11 @@ function MenuController(filterService) {
         this.ageChartData = ageChartData;
 
         this.selectChart = function (chart) {
-            this.selectedChart = chart;
+            if (chart === this.selectedChart) {
+                this.selectedChart = '';
+            } else {
+                this.selectedChart = chart;
+            }
         };
 
         this.updateFilter = function (newFilter) {
