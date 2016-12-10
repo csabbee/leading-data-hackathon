@@ -6,6 +6,6 @@ module.exports = {
 
 function initComponent(appModule) {
     appModule.service('filterService', function () {
-        this.filter = ['all'];
+        this.filter = ['any'];
     });
 }

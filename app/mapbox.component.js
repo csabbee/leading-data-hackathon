@@ -49,7 +49,7 @@ function initComponent(appModule) {
                 'source': 'telekom_crm_msc_weekly',
                 'paint': {
                     'circle-radius': circleRadius,
-                    'circle-color': '#3b558f'//'#C3C5C4'//
+                    'circle-color': '#102849'//'#3b558f'//'#C3C5C4'//
                 }
             });
 

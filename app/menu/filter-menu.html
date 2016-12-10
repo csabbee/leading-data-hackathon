@@ -13,7 +13,7 @@
         <span class="label label-danger">Min</span>
         <input type="range"
             data-ng-model="$ctrl.min"
-            data-ng-init="$ctrl.min = 0"
+            ng-model-options="{ debounce: 250 }"
             class="checkbox-input">
         <div data-ng-bind="$ctrl.min"></div>
     </div>
@@ -21,7 +21,7 @@
         <span class="label label-primary">Max</span>
         <input type="range"
             data-ng-model="$ctrl.max"
-            data-ng-init="$ctrl.max = 100"
+            ng-model-options="{ debounce: 250 }"
             class="checkbox-input">
         <div data-ng-bind="$ctrl.max"></div>
     </div>
