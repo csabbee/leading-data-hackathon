@@ -1,4 +1,3 @@
 node_modules/
 dist/
 mapboxtoken.js
-app/telekom_towers.geo.json
