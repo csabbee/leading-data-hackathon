@@ -24,18 +24,22 @@ MenuController.$inject = ['filterService'];
 function MenuController(filterService) {
     
     this.$onInit = function () {
+        // init data sets
+
         var genderChartData = [
             { y: 0, color: 'red' },
             { y: 0, color: 'blue' }
         ];
+
         var ageChartData = [
             { y: 0, color: 'red', name: '18-24'},
             { y: 0, color: 'green', name: '25-45'},
             { y: 0, color: 'blue', name: '46-60'},
             { y: 0, color: 'grey', name: '61-74'},
             { y: 0, color: 'black', name: '75-'}
-        ]
-        console.log(this.geojson);
+        ];
+
+        // build data sets
         this.geojson.data.features.forEach(function (data) {
             if (data.properties.crm_sex === 'F') {
                 genderChartData[0].y += 1;
@@ -55,6 +59,7 @@ function MenuController(filterService) {
                 ageChartData[4].y += 1;
             }
         });
+
         this.genderChartData = genderChartData;
         this.ageChartData = ageChartData;
 
@@ -64,9 +69,10 @@ function MenuController(filterService) {
 
         this.updateFilter = function (newFilter) {
             this.parent.updateFilter(newFilter);
-        }
+        };
        
-    }
+    };
+
     console.log(filterService);
 }
 

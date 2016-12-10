@@ -50,6 +50,6 @@ function initComponent(appModule) {
         });
 
         this.$onChanges = function () {
-        }
+        };
     }
 }

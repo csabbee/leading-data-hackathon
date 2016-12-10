@@ -2,7 +2,7 @@
 
 module.exports = {
     initComponent: initComponent
-}
+};
 
 function initComponent(appModule) {
     appModule.component('mapbox', {
