@@ -27,16 +27,16 @@ function MenuController(filterService) {
         // init data sets
 
         var genderChartData = [
-            { y: 0, color: 'red' },
-            { y: 0, color: 'blue' }
+            { y: 0, color: '#F47936' },
+            { y: 0, color: '#023E5A' }
         ];
 
         var ageChartData = [
-            { y: 0, color: 'red', name: '18-24'},
-            { y: 0, color: 'green', name: '25-45'},
-            { y: 0, color: 'blue', name: '46-60'},
-            { y: 0, color: 'grey', name: '61-74'},
-            { y: 0, color: 'black', name: '75-'}
+            { y: 0, color: '#10282E', name: '18-24'},
+            { y: 0, color: '#3F89E7', name: '25-45'},
+            { y: 0, color: '#0165A6', name: '46-60'},
+            { y: 0, color: '#023E5A', name: '61-74'},
+            { y: 0, color: '#F47936', name: '75-'}
         ];
 
         // build data sets

@@ -27,6 +27,14 @@
             }
 
             span {
+                &.label.label-danger.label-orange {
+                    background-color: #F47936;
+                }
+
+                &.label.label-primary.label-blue {
+                    background-color: #023E5A;
+                }
+
                 padding-right: 3px;
             }
 

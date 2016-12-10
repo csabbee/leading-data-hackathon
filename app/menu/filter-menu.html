@@ -1,16 +1,16 @@
 <div data-ng-if="$ctrl.selectedChart === 'gender'" class="gender-menu-container">
     <div class="gender-menu-container-element">
-        <span class="label label-danger">Female</span>
+        <span class="label label-danger label-orange">Female</span>
         <input type="checkbox" data-ng-model="$ctrl.femaleCheckbox" class="checkbox-input">
     </div>
     <div class="gender-menu-container-element">
-        <span class="label label-primary">Male</span>
+        <span class="label label-primary label-blue">Male</span>
         <input type="checkbox" data-ng-model="$ctrl.maleCheckbox" class="checkbox-input">
     </div>
 </div>
 <div data-ng-if="$ctrl.selectedChart === 'age'" class="gender-menu-container">
     <div class="gender-menu-container-element slider">
-        <span class="label label-danger">Min</span>
+        <span class="label label-danger label-orange">Min</span>
         <input type="range"
             data-ng-model="$ctrl.min"
             ng-model-options="{ debounce: 250 }"
@@ -18,7 +18,7 @@
         <div data-ng-bind="$ctrl.min"></div>
     </div>
     <div class="gender-menu-container-element slider">
-        <span class="label label-primary">Max</span>
+        <span class="label label-primary label-blue">Max</span>
         <input type="range"
             data-ng-model="$ctrl.max"
             ng-model-options="{ debounce: 250 }"
