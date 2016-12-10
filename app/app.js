@@ -10,15 +10,8 @@ appModule.component('telekomApp', {
     controller: TelekomAppController
 });
 
-TelekomAppController.$inject = ['filterService'];
-
-function TelekomAppController(filterService) {
+function TelekomAppController() {
     this.geojson = require('./telekom_crm_msc_weekly.json');
-    
-    this.filter = filterService.filter;
-    this.updateFilter = function (newFilter) {
-        this.filter = newFilter
-    }
 }
 
 require('./mapbox.component.js').initComponent(appModule);
