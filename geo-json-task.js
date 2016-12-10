@@ -3,10 +3,6 @@ var Converter = require('csvtojson').Converter;
 var fs = require('fs');
 var _ = require('lodash');
 
-var converterCrm = new Converter({});
-var converterMsc = new Converter({});
-var converterTac = new Converter({});
-
 gulp.task('generate-geo.json', function (done) {
     getGeoJSON().then(geoJson => {
         fs.writeFileSync('app/telekom_crm_msc_weekly.json', JSON.stringify(geoJson));
@@ -15,25 +11,24 @@ gulp.task('generate-geo.json', function (done) {
 });
 
 function getGeoJSON() {
-    var crmPromise = new Promise((resolve, reject) => {
-        converterCrm.fromFile('./data/crm_weekly.csv', function (err, result) {
-            resolve(result);
-        });
+    var filesToMerge = [
+        './data/crm_weekly.csv',
+        './data/msc_weekly.csv',
+        './data/tac_weekly.csv'
+    ];
+
+    var promises = [];
+    _.forEach(filesToMerge, file => {
+        var converter = new Converter({});
+        promises.push(new Promise((resolve, reject) => {
+            converter.fromFile(file, function (err, result) {
+                resolve(result);
+            });
+        }));
     });
 
-    var mscPromise = new Promise((resolve, reject) => {
-        converterMsc.fromFile('./data/msc_weekly.csv', function (err, result) {
-            resolve(result);
-        });
-    });
-
-    var tacPromise = new Promise((resolve, reject) => {
-        converterTac.fromFile('./data/tac_weekly.csv', function (err, result) {
-            resolve(result);
-        });
-    });
-
-    return Promise.all([crmPromise, mscPromise, tacPromise])
+    //var towerDistance = require('./data/towerDistance.json');
+    return Promise.all(promises)
         .then(([crm, msc, tac]) => {
             return connectJsons(crm, msc, tac);
         })
