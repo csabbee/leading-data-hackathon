@@ -8,7 +8,7 @@ var converterMsc = new Converter({});
 
 gulp.task('generate-geo.json', function (done) {
     getGeoJSON().then(geoJson => {
-        fs.writeFileSync('app/telekom_crm_msc_weekly.json', JSON.stringify(geoJson));
+        fs.writeFileSync('app/telekom_crm_msc_weekly.json', JSON.stringify(geoJson, null, '    '));
         done();
     });
 });

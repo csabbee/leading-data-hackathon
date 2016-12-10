@@ -1,4 +1,5 @@
 require('./geo-json-task.js');
+require('./geojson-filter-task.js');
 
 const gulp = require('gulp');
 const browserify = require('browserify');
@@ -20,7 +21,11 @@ const CONFIG = {
     entry: 'app/app.js'
 };
 
-gulp.task('default', sequence('generate-geo.json', ['sass', 'build:app', 'build:vendor', 'watch'], 'index', 'connect'));
+gulp.task('default', sequence(
+    ['generate-geo.json', 'filter-geojson'],
+    ['sass', 'build:app', 'build:vendor', 'watch'],
+    'index',
+    'connect'));
 
 gulp.task('watch', function () {
     gulp.watch('app/**/*.scss', ['sass']);
