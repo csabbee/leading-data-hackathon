@@ -43,9 +43,7 @@ map.on('load', function () {
                     [65, '#006699']
                 ]
             }
-            //'circle-blur': 3
-        },
-        'filter': ['==', 'day', 1]
+        }
     });
 
     document.addEventListener('keyup', function (e) {
