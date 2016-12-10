@@ -24,6 +24,8 @@ MenuController.$inject = ['filterService'];
 function MenuController(filterService) {
     
     this.$onInit = function () {
+        this.selectedChart = '';
+
         // init data sets
 
         var genderChartData = [
