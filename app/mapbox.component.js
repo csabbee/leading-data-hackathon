@@ -10,9 +10,9 @@ function initComponent(appModule) {
         controller: MapboxController
     });
 
-    MapboxController.$inject = ['$element'];
+    MapboxController.$inject = [];
 
-    function MapboxController($element) {
+    function MapboxController() {
         var telekomGeoJson = require('./telekom_crm_msc_weekly.json');
         console.log(telekomGeoJson.data.features.length);
         console.log(telekomGeoJson.data.features[0].properties);
