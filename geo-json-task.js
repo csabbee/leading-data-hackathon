@@ -5,6 +5,7 @@ var _ = require('lodash');
 
 var converterCrm = new Converter({});
 var converterMsc = new Converter({});
+var converterTac = new Converter({});
 
 gulp.task('generate-geo.json', function (done) {
     getGeoJSON().then(geoJson => {
@@ -26,9 +27,15 @@ function getGeoJSON() {
         });
     });
 
-    return Promise.all([crmPromise, mscPromise])
-        .then(([crm, msc]) => {
-            return connectJsons(crm, msc);
+    var tacPromise = new Promise((resolve, reject) => {
+        converterTac.fromFile('./data/tac_weekly.csv', function (err, result) {
+            resolve(result);
+        });
+    });
+
+    return Promise.all([crmPromise, mscPromise, tacPromise])
+        .then(([crm, msc, tac]) => {
+            return connectJsons(crm, msc, tac);
         })
         .then(toGeoJson);
 }
@@ -51,22 +58,30 @@ function toGeoJson(connectedJson) {
                 coordinates: [element.longitude, element.latitude]
             },
             properties: {
+                // time and location data
+                timestamp: element.timestamp,
+                dataset: element.dataset,
                 day: parseInt(dt.getDay() + 1),
                 hm: getHHMM(dt),
+                zip: element.zip,
+                // personal data
                 age: element.age,
-                sex: element.sex/*,
-                unstable: {
-                    timestamp: element.timestamp,
-                    id: element.subscriber,
-                    dataset: element.dataset,
-                    zip: element.zip,
-                    arpu: element.arpu,
-                    magan: element.magan,
-                    magenta_1: element.magenta_1,
-                    sim_4g: element.sim_4g,
-                    type: element.type,
-                    uzleti: element.uzleti
-                }*/
+                sex: element.sex,
+                // TAC related data
+                tac: element.TAC,
+                manufacturer: element.manufacturer,
+                model: element.model,
+                aka: element.aka,
+                os: element.os,
+                year: element.year,
+                isLte: element.lte,
+                // others
+                arpu: element.arpu,
+                magan: element.magan,
+                magenta_1: element.magenta_1,
+                sim_4g: element.sim_4g,
+                type: element.type,
+                uzleti: element.uzleti
             }
         };
     });
@@ -78,10 +93,10 @@ function toGeoJson(connectedJson) {
     }
 }
 
-function connectJsons(crmJson, mscJson) {
-    return mscJson.map(msc => {
+function connectJsons(crmJson, mscJson, tacJson) {
+    return mscJson.map((msc, index) => {
         var userData = _.find(crmJson, { subscriber: msc.subscriber });
-
-        return _.merge({}, msc, userData);
+        var tacData = _.find(tacJson, { TAC: msc.TAC });
+        return _.merge({}, msc, userData, tacData);
     });
 }
