@@ -7,7 +7,7 @@ console.log(telekomGeoJson.data.features[0]);
 var token = require('../mapboxtoken');
 mapboxgl.accessToken = token;
 
-var mapStyle = 'mapbox://styles/seprus/ciwidpb5n00i52pmqxht7cad0';
+var mapStyle = 'mapbox://styles/seprus/ciwidozzc00fr2ps5tlkf3g5j';
 
 var map = new mapboxgl.Map({
     container: 'mapbox',
