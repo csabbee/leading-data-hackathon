@@ -16,7 +16,7 @@ function initComponent(appModule) {
         bindings: {
             geojson: '<'
         }
-    })
+    });
 }
 
 MenuController.$inject = ['filterService'];
