@@ -1,5 +1,7 @@
 'use strict';
 
+var _ = require('lodash');
+
 var telekomGeoJson = require('./telekom_crm_msc_weekly.json');
 console.log(telekomGeoJson.data.features.length);
 console.log(telekomGeoJson.data.features[0].properties);
