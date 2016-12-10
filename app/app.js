@@ -10,16 +10,16 @@ appModule.component('telekomApp', {
     controller: TelekomAppController
 });
 
-TelekomAppController.$inject = ['$timeout'];
+TelekomAppController.$inject = ['$timeout', 'filterService'];
 
-function TelekomAppController($timeout) {
+function TelekomAppController($timeout, filterService) {
     this.geojson = require('./telekom_crm_msc_weekly.json');
     console.log(this.geojson.data.features.length);
     console.log(this.geojson.data.features[0].properties);
 
-    this.filter = ['all'];
+    this.filter = filterService.filter;
     this.updateFilter = function (newFilter) {
-        this.filter = newFilter
+        this.filter = newFilter;
     }
 }
 

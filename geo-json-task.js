@@ -58,30 +58,32 @@ function toGeoJson(connectedJson) {
                 coordinates: [element.longitude, element.latitude]
             },
             properties: {
-                // time and location data
-                timestamp: element.timestamp,
-                dataset: element.dataset,
-                day: parseInt(dt.getDay() + 1),
-                hm: getHHMM(dt),
-                zip: element.zip,
-                // personal data
-                age: element.age,
-                sex: element.sex,
-                // TAC related data
-                tac: element.TAC,
-                manufacturer: element.manufacturer,
-                model: element.model,
-                aka: element.aka,
-                os: element.os,
-                year: element.year,
-                isLte: element.lte,
+                // MSC data
+                msc_timestamp: element.timestamp,
+                msc_mmdd: element.dataset,
+                msc_hhmm: getHHMM(dt),
+                msc_day: parseInt(dt.getDay() + 1),
+                msc_type: element.type,
+                // CRM data
+                crm_sex: element.sex,
+                crm_age: element.age,
+                crm_zip: element.zip,
+                crm_city: element.city,
+                crm_category: element.category,
+                crm_isPrivate: element.magan,
+                crm_isBusiness: element.uzleti,
+                crm_arpu: element.arpu,
+                // TAC data
+                tac_id: element.TAC,
+                tac_manufacturer: element.manufacturer,
+                tac_model: element.model,
+                tac_aka: element.aka,
+                tac_os: element.os,
+                tac_year: element.year,
+                tac_isLte: element.lte,
                 // others
-                arpu: element.arpu,
-                magan: element.magan,
                 magenta_1: element.magenta_1,
-                sim_4g: element.sim_4g,
-                type: element.type,
-                uzleti: element.uzleti
+                sim_4g: element.sim_4g
             }
         };
     });

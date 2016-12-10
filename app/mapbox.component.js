@@ -36,33 +36,37 @@ function initComponent(appModule) {
         });
 
         map.on('load', () => {
+            var circleRadius = {
+                'base': 3,
+                'stops': [[8, 3.5], [10, 4.2], [12, 5.1], [14, 6.2], [16, 7.5]]
+            };
+
             map.addSource('telekom_crm_msc_weekly', this.geojson);
+
             map.addLayer({
-                'id': 'telekom',
+                'id': 'telekom-all',
                 'type': 'circle',
                 'source': 'telekom_crm_msc_weekly',
                 'paint': {
-                    'circle-radius': {
-                        'base': 1.75,
-                        'stops': [[7, 2], [12, 7], [22, 180]]
-                    },
-                    'circle-color': {
-                        property: 'age',
-                        type: 'exponential',
-                        stops: [
-                            [18, '#00FF66'],
-                            [24, '#00FF99'],
-                            [33, '#00FFCC'],
-                            [40, '#3399CC'],
-                            [65, '#006699']
-                        ]
-                    }
+                    'circle-radius': circleRadius,
+                    'circle-color': '#3b558f'//'#C3C5C4'//
                 }
+            });
+
+            map.addLayer({
+                'id': 'telekom-filtered',
+                'type': 'circle',
+                'source': 'telekom_crm_msc_weekly',
+                'paint': {
+                    'circle-radius': circleRadius,
+                    'circle-color': '#16a3e8'//'#C41B00'//
+                },
+                'filter': this.filter
             });
 
             this.$onChanges = function (changes) {
                 if (changes.filter.previousValue !== 'UNINITIALIZED_VALUE') {
-                    map.setFilter('telekom', changes.filter.currentValue);
+                    map.setFilter('telekom-filtered', changes.filter.currentValue);
                 }
             };
         });
