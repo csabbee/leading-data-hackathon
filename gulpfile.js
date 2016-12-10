@@ -15,7 +15,7 @@ const del = require('del');
 const templateCache = require('gulp-angular-templatecache');
 
 
-const THIRD_PARTY = ['d3', 'lodash', 'mapbox', 'angular'];
+const THIRD_PARTY = ['d3', 'lodash', 'mapbox', 'angular', 'highcharts'];
 
 const CONFIG = {
     dest: 'dist',

@@ -24,4 +24,5 @@ function TelekomAppController($timeout) {
 }
 
 require('./mapbox.component.js').initComponent(appModule);
-//require('./menu/menu.component.js').initComponent(appModule);
+require('./menu/menu.component.js').initComponent(appModule);
+require('./menu/filter.service.js').initComponent(appModule);

@@ -7,11 +7,16 @@ module.exports = {
 function initComponent(appModule) {
     appModule.component('menu', {
         templateUrl: 'menu/menu.html',
-        controller: MenuController
+        controller: MenuController,
+        require: {
+            parent: '^telekomApp'
+        }
     })
 }
 
-function MenuController() {
-    
+MenuController.$inject = ['filterService'];
+
+function MenuController(filterService) {
+    console.log(filterService);
 }
 

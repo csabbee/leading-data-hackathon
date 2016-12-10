@@ -33,6 +33,7 @@
     "angular": "^1.6.0",
     "csvtojson": "^1.0.3",
     "d3": "^4.4.0",
+    "highcharts": "^5.0.6",
     "lodash": "^4.17.2",
     "mapbox": "^1.0.0-beta5",
     "mapbox-gl": "^0.28.0"
