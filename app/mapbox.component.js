@@ -7,15 +7,18 @@ module.exports = {
 function initComponent(appModule) {
     appModule.component('mapbox', {
         templateUrl: 'mapbox.html',
-        controller: MapboxController
+        controller: MapboxController,
+        require: {
+            parent: '^telekomApp'
+        },
+        bindings: {
+            geojson: '<'
+        }
     });
 
     MapboxController.$inject = [];
 
     function MapboxController() {
-        var telekomGeoJson = require('./telekom_crm_msc_weekly.json');
-        console.log(telekomGeoJson.data.features.length);
-        console.log(telekomGeoJson.data.features[0].properties);
         var token = require('../mapboxtoken');
         mapboxgl.accessToken = token;
 
@@ -31,8 +34,8 @@ function initComponent(appModule) {
             hash: true
         });
 
-        map.on('load', function () {
-            map.addSource('telekom_crm_msc_weekly', telekomGeoJson);
+        map.on('load', () => {
+            map.addSource('telekom_crm_msc_weekly', this.geojson);
             map.addLayer({
                 'id': 'telekom',
                 'type': 'circle',

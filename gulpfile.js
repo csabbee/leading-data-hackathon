@@ -31,7 +31,7 @@ gulp.task('default', sequence(
 gulp.task('watch', function () {
     gulp.watch('app/**/*.scss', ['sass']);
     gulp.watch(['app/**/*.js'], ['build:app']);
-    gulp.watch('app/**/*.html', ['templateCache']);
+    gulp.watch(['app/**/*.html'], ['templateCache']);
     gulp.watch('index.html').on('change', browserSync.reload);
     gulp.watch(`${CONFIG.dest}/**/*.*`).on('change', browserSync.reload);
 });

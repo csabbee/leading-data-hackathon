@@ -5,5 +5,20 @@ var angular = require('angular');
 
 var appModule = angular.module('telekom-vis', ['templates']);
 
-require('./mapbox.component.js').initComponent(appModule);
+appModule.component('telekomApp', {
+    templateUrl: 'telekom-app.html',
+    controller: TelekomAppController
+});
 
+function TelekomAppController() {
+    this.geojson = require('./telekom_crm_msc_weekly.json');
+    console.log(this.geojson.data.features.length);
+    console.log(this.geojson.data.features[0].properties);
+
+    this.filterData = function () {
+        console.log('asdasd');
+    }
+}
+
+require('./mapbox.component.js').initComponent(appModule);
+require('./menu/menu.component.js').initComponent(appModule);
