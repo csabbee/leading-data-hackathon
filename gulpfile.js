@@ -12,9 +12,10 @@ const sequence = require('gulp-sequence');
 const notify = require('gulp-notify');
 const plumber = require('gulp-plumber');
 const del = require('del');
+const templateCache = require('gulp-angular-templatecache');
 
 
-const THIRD_PARTY = ['d3', 'lodash', 'mapbox'];
+const THIRD_PARTY = ['d3', 'lodash', 'mapbox', 'angular'];
 
 const CONFIG = {
     dest: 'dist',
@@ -22,7 +23,7 @@ const CONFIG = {
 };
 
 gulp.task('default', sequence(
-    ['generate-geo.json', 'filter-geojson'],
+    ['generate-geo.json', 'filter-geojson', 'templateCache'],
     ['sass', 'build:app', 'build:vendor', 'watch'],
     'index',
     'connect'));
@@ -30,6 +31,8 @@ gulp.task('default', sequence(
 gulp.task('watch', function () {
     gulp.watch('app/**/*.scss', ['sass']);
     gulp.watch(['app/**/*.js'], ['build:app']);
+    gulp.watch('app/**/*.html', ['templateCache']);
+    gulp.watch('index.html').on('change', browserSync.reload);
     gulp.watch(`${CONFIG.dest}/**/*.*`).on('change', browserSync.reload);
 });
 
@@ -55,7 +58,11 @@ gulp.task('connect', function () {
 
 gulp.task('index', function () {
     var target = gulp.src('./index.html');
-    var source = gulp.src([`${CONFIG.dest}/vendor*.js`, `${CONFIG.dest}/*.js`, `${CONFIG.dest}/*.css`], { read: false });
+    var source = gulp.src([
+        `${CONFIG.dest}/vendor*.js`,
+        `${CONFIG.dest}/templates.js`,
+        `${CONFIG.dest}/*.js`,
+        `${CONFIG.dest}/*.css`], { read: false });
     return target
         .pipe(inject(source))
         .pipe(gulp.dest(`./`));
@@ -90,6 +97,18 @@ gulp.task('build:app', function (done) {
         .pipe(source('bundle.js'))
         .pipe(gulp.dest(CONFIG.dest));
     done();
+});
+
+gulp.task('templateCache', () => {
+    const TEMPLATE_HEADER = `
+    var angular = require('angular');
+    angular.module("<%= module %>"<%= standalone %>).run(["$templateCache", function($templateCache) {`;
+    return gulp.src('app/**/*.html')
+        .pipe(templateCache('templates.js', {
+            standalone: true,
+            templateHeader: TEMPLATE_HEADER
+        }))
+        .pipe(gulp.dest('dist'));
 });
 
 function onError(err) {

@@ -20,6 +20,7 @@
     "browserify": "^13.1.1",
     "del": "^2.2.2",
     "gulp": "^3.9.1",
+    "gulp-angular-templatecache": "^2.0.0",
     "gulp-inject": "^4.1.0",
     "gulp-notify": "^2.2.0",
     "gulp-plumber": "^1.1.0",
@@ -29,6 +30,7 @@
     "vinyl-source-stream": "^1.1.0"
   },
   "dependencies": {
+    "angular": "^1.6.0",
     "csvtojson": "^1.0.3",
     "d3": "^4.4.0",
     "lodash": "^4.17.2",

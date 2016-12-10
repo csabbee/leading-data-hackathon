@@ -1,5 +1,5 @@
 var gulp = require('gulp');
-var Converter = require("csvtojson").Converter;
+var Converter = require('csvtojson').Converter;
 var fs = require('fs');
 var _ = require('lodash');
 
@@ -8,7 +8,7 @@ var converterMsc = new Converter({});
 
 gulp.task('generate-geo.json', function (done) {
     getGeoJSON().then(geoJson => {
-        fs.writeFileSync('app/telekom_crm_msc_weekly.json', JSON.stringify(geoJson, null, '    '));
+        fs.writeFileSync('app/telekom_crm_msc_weekly.json', JSON.stringify(geoJson));
         done();
     });
 });
