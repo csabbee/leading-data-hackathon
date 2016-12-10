@@ -43,6 +43,7 @@ function toGeoJson(connectedJson) {
     };
 
     geoJson.data.features = connectedJson.map(element => {
+        var dt = new Date(element.timestamp);
         return {
             type: 'Feature',
             geometry: {
@@ -50,15 +51,15 @@ function toGeoJson(connectedJson) {
                 coordinates: [element.longitude, element.latitude]
             },
             properties: {
-                timestamp: element.timestamp,
-                dataset: element.dataset,
-                zip: element.zip,
-                person: {
-                    age: element.age,
+                day: parseInt(dt.getDay() + 1),
+                hm: getHHMM(dt),
+                age: element.age,
+                sex: element.sex,
+                unstable: {
+                    timestamp: element.timestamp,
                     id: element.subscriber,
-                    sex: element.sex
-                },
-                others: {
+                    dataset: element.dataset,
+                    zip: element.zip,
                     arpu: element.arpu,
                     magan: element.magan,
                     magenta_1: element.magenta_1,
@@ -71,6 +72,10 @@ function toGeoJson(connectedJson) {
     });
 
     return geoJson;
+
+    function getHHMM(dt) {
+        return ('0' + dt.getHours()).slice(-2) + ':' + ('0' + dt.getMinutes()).slice(-2);
+    }
 }
 
 function connectJsons(crmJson, mscJson) {
