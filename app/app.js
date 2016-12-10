@@ -19,7 +19,6 @@ function TelekomAppController($timeout, filterService) {
 
     this.filter = filterService.filter;
     this.updateFilter = function (newFilter) {
-        console.log(newFilter);
         this.filter = newFilter
     }
 }

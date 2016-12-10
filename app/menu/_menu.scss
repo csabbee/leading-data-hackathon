@@ -1,0 +1,36 @@
+.menu-container {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    bottom: 0;
+    left: 30%;
+    width: 400px;
+    height: 200px;
+    background-color: rgba(255, 255, 255, 1.0);
+
+    .chart-wrapper {
+        display: flex;
+        flex-direction: row;
+    }
+
+    .gender-menu-container {
+        padding-top: 15px;
+        display: flex;
+
+        .gender-menu-container-element {
+            padding-right: 15px;
+            display: flex;
+
+            span {
+                padding-right: 3px;
+            }
+
+            input {
+                margin-left: 5px;
+            }
+        }
+    }
+    .checkbox-input {
+        margin-bottom: 2px;
+    }
+}

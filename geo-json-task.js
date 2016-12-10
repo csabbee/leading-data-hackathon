@@ -27,7 +27,8 @@ function getGeoJSON() {
         }));
     });
 
-    var distanceJson = require('./app/towerDistance.json');
+    // var distanceJson = require('./app/towerDistance.json');
+    var distanceJson = {};
     return Promise.all(promises)
         .then(([crm, msc, tac]) => {
             return connectJsons(crm, msc, tac, distanceJson);

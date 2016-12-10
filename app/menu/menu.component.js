@@ -37,21 +37,21 @@ function MenuController(filterService) {
         ]
         console.log(this.geojson);
         this.geojson.data.features.forEach(function (data) {
-            if (data.properties.sex === 'F') {
+            if (data.properties.crm_sex === 'F') {
                 genderChartData[0].y += 1;
             } else {
                 genderChartData[1].y += 1;
             }
 
-            if (data.properties.age >= 18 && data.properties.age < 25) {
+            if (data.properties.crm_age >= 18 && data.properties.crm_age < 25) {
                 ageChartData[0].y += 1;
-            } else if (data.properties.age >= 25 && data.properties.age < 46) {
+            } else if (data.properties.crm_age >= 25 && data.properties.crm_age < 46) {
                 ageChartData[1].y += 1;
-            } else if (data.properties.age >= 46 && data.properties.age < 61) {
+            } else if (data.properties.crm_age >= 46 && data.properties.crm_age < 61) {
                 ageChartData[2].y += 1;
-            } else if (data.properties.age >= 61 && data.properties.age < 75) {
+            } else if (data.properties.crm_age >= 61 && data.properties.crm_age < 75) {
                 ageChartData[3].y += 1;
-            } else if (data.properties.age >= 75) {
+            } else if (data.properties.crm_age >= 75) {
                 ageChartData[4].y += 1;
             }
         });
