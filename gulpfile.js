@@ -26,6 +26,7 @@ const CONFIG = {
 gulp.task('default', sequence(
     //['generate-geo.json', 'filter-geojson', 'templateCache', 'pharmacy-geo'],
     ['sass', 'build:app', 'build:vendor', 'watch'],
+    'templateCache',
     'index',
     'connect'));
 
