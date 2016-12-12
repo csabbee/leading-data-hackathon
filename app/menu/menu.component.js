@@ -1,36 +1,73 @@
 'use strict';
-var Highcharts = require('highcharts');
 var _ = require('lodash');
 
 module.exports = {
     initComponent: initComponent
 };
 
-function initComponent(appModule) {
-    appModule.component('menu', {
+function initComponent(app) {
+    app.component('menu', {
         templateUrl: 'menu/menu.html',
         controller: MenuController,
         require: {
-            parent: '^telekomApp'
+            parent: '^dashboard'
         },
         bindings: {
-            geojson: '<'
+            sourceData: '<'
         }
     });
 }
 
-MenuController.$inject = ['filterService'];
-
-function MenuController(filterService) {
-    
+function MenuController() {
     this.$onInit = function () {
         this.selectedChart = '';
+
+        this.chartOption = {
+            chart: {
+                plotBackgroundColor: null,
+                plotBorderWidth: null,
+                plotShadow: false,
+                type: 'pie',
+                width: 100,
+                height: 100
+            },
+            credits: {
+                enabled: false
+            },
+            title: {
+                text: '',
+                verticalAlign: 'middle',
+                y: 6
+            },
+            tooltip: { enabled: false },
+            plotOptions: {
+                allowPointSelect: false,
+                series: {
+                    dataLabels: { enabled: false },
+                    states: {
+                        hover: {
+                            enabled: false
+                        }
+                    }
+                }
+            },
+            series: [{
+                showInLegend: false,
+                size: '88%',
+                innerSize: '75%',
+                dataLabels: {
+                    enabled: false
+                }, 
+                data: []
+            }]
+        };
 
         // init data sets
 
         var genderChartData = [
             { y: 0, color: '#F47936' },
-            { y: 0, color: '#023E5A' }
+            { y: 0, color: '#023E5A' },
+            { y: 0, color: '#0165A6' },
         ];
 
         var ageChartData = [
@@ -42,24 +79,28 @@ function MenuController(filterService) {
         ];
 
         // build data sets
-        this.geojson.data.features.forEach(function (data) {
-            if (data.properties.crm_sex === 'F') {
+        _.forEach(this.sourceData[0].data.data.features, function (feature) {
+
+            if (feature.properties.crm_sex === 'F') {
                 genderChartData[0].y += 1;
-            } else {
+            } else if (feature.properties.crm_sex === 'M') {
                 genderChartData[1].y += 1;
+            } else {
+                genderChartData[2].y += 1;
             }
 
-            if (data.properties.crm_age >= 18 && data.properties.crm_age < 25) {
+            if (feature.properties.crm_age >= 18 && feature.properties.crm_age < 25) {
                 ageChartData[0].y += 1;
-            } else if (data.properties.crm_age >= 25 && data.properties.crm_age < 46) {
+            } else if (feature.properties.crm_age >= 25 && feature.properties.crm_age < 46) {
                 ageChartData[1].y += 1;
-            } else if (data.properties.crm_age >= 46 && data.properties.crm_age < 61) {
+            } else if (feature.properties.crm_age >= 46 && feature.properties.crm_age < 61) {
                 ageChartData[2].y += 1;
-            } else if (data.properties.crm_age >= 61 && data.properties.crm_age < 75) {
+            } else if (feature.properties.crm_age >= 61 && feature.properties.crm_age < 75) {
                 ageChartData[3].y += 1;
-            } else if (data.properties.crm_age >= 75) {
+            } else if (feature.properties.crm_age >= 75) {
                 ageChartData[4].y += 1;
             }
+
         });
 
         this.genderChartData = genderChartData;
@@ -78,7 +119,5 @@ function MenuController(filterService) {
         };
        
     };
-
-    console.log(filterService);
 }
 

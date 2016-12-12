@@ -1,5 +1,17 @@
-<filter-menu ng-if="$ctrl.selectedChart !== ''" class="expanding-content" data-selected-chart="$ctrl.selectedChart"></filter-menu>
+<filter-menu
+	ng-if="$ctrl.selectedChart !== ''"
+	class="expanding-content"
+	data-selected-chart="$ctrl.selectedChart">
+</filter-menu>
 <div class="chart-wrapper">
-    <gender-chart data="$ctrl.genderChartData"></gender-chart>
-    <age-chart data="$ctrl.ageChartData"></age-chart>
+    <age-chart
+		data-chart-option="$ctrl.chartOption"
+        data-title-char="A"
+    	data="$ctrl.ageChartData">
+    </age-chart>
+    <gender-chart
+    	data-chart-option="$ctrl.chartOption"
+        data-title-char="G"
+    	data="$ctrl.genderChartData">
+    </gender-chart>
 </div> 

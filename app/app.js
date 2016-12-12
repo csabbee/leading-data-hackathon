@@ -1,22 +1,11 @@
 'use strict';
-
-var _ = require('lodash');
 var angular = require('angular');
 
-var appModule = angular.module('telekom-vis', ['templates']);
+var app = angular.module('telekom-vis', ['templates']);
 
-appModule.component('telekomApp', {
-    templateUrl: 'telekom-app.html',
-    controller: TelekomAppController
-});
-
-function TelekomAppController() {
-    this.geojson = require('./telekom_crm_msc_weekly.json');
-}
-
-require('./mapbox.component.js').initComponent(appModule);
-require('./menu/menu.component.js').initComponent(appModule);
-require('./menu/filter.service.js').initComponent(appModule);
-require('./menu/gender-chart.component.js').initComponent(appModule);
-require('./menu/filter-menu.component.js').initComponent(appModule);
-require('./menu/age-chart.component.js').initComponent(appModule);
+require('./dashboard.component.js').initComponent(app);
+require('./mapbox.component.js').initComponent(app);
+require('./menu/menu.component.js').initComponent(app);
+require('./menu/gender-chart.component.js').initComponent(app);
+require('./menu/filter-menu.component.js').initComponent(app);
+require('./menu/age-chart.component.js').initComponent(app);

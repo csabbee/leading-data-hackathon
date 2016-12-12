@@ -1,81 +1,79 @@
 'use strict';
+var _ = require('lodash');
 
 module.exports = {
     initComponent: initComponent
 };
 
-function initComponent(appModule) {
-    appModule.component('mapbox', {
+function initComponent(app) {
+    app.component('mapbox', {
         templateUrl: 'mapbox.html',
         controller: MapboxController,
         require: {
-            parent: '^telekomApp'
+            parent: '^dashboard'
         },
         bindings: {
-            geojson: '<',
+            mapboxConfig: '<',
+            sourceData: '<',
             filter: '<'
         }
     });
+}
 
-    MapboxController.$inject = [];
-
-    function MapboxController() {
-        var token = require('../mapboxtoken');
-        mapboxgl.accessToken = token;
-
-        var mapStyle = 'mapbox://styles/seprus/ciwidozzc00fr2ps5tlkf3g5j';
-
+function MapboxController() {
+    this.$onInit = () => {
         var map = new mapboxgl.Map({
             container: 'mapbox',
-            style: mapStyle,
+            style: this.mapboxConfig.style,
             interactive: true,
-            center: [19.0374, 47.4941],
+            center: [19, 47.5],
             zoom: 8,
             minZoom: 6,
             hash: true
         });
 
         map.on('load', () => {
-            var circleRadius = {
-                'base': 3,
-                'stops': [[8, 3.5], [10, 4.2], [12, 5.1], [14, 6.2], [16, 7.5]]
-            };
+            _.forEach(this.sourceData, source => {
+                map.addSource(source.name, source.data);
+            });
 
-            map.addSource('telekom_crm_msc_weekly', this.geojson);
+            map.addLayer({
+                'id': 'poi',
+                'type': 'circle',
+                'source': 'poi',
+                'paint': {
+                    'circle-radius': this.mapboxConfig.circleRadiusPoi,
+                    'circle-color': '#ff0000'
+                }
+            });
 
             map.addLayer({
                 'id': 'telekom-all',
                 'type': 'circle',
-                'source': 'telekom_crm_msc_weekly',
+                'source': 'telekom',
                 'paint': {
-                    'circle-radius': circleRadius,
-                    'circle-color': '#102849'//'#3b558f'//'#C3C5C4'//
+                    'circle-radius': this.mapboxConfig.circleRadius,
+                    'circle-color': '#10282E'
                 }
             });
 
             map.addLayer({
                 'id': 'telekom-filtered',
                 'type': 'circle',
-                'source': 'telekom_crm_msc_weekly',
+                'source': 'telekom',
                 'paint': {
-                    'circle-radius': circleRadius,
-                    'circle-color': '#16a3e8'//'#C41B00'//
+                    'circle-radius': this.mapboxConfig.circleRadius,
+                    'circle-color': '#16a3e8'
                 },
                 'filter': this.filter
             });
 
             this.$onChanges = function (changes) {
                 if (changes.filter.previousValue !== 'UNINITIALIZED_VALUE') {
-                    console.log(changes.filter.currentValue);
-                    try {
-                        map.setFilter('telekom-filtered', changes.filter.currentValue);
-                    } catch (err) {
-                        console.log(err);
-                    }
+                    map.setFilter('telekom-filtered', changes.filter.currentValue);
                 }
             };
+
         });
-    }
-
+    };
 }
-
