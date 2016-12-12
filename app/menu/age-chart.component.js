@@ -1,73 +1,39 @@
 'use strict';
-var Highcharts = require('highcharts');
 var _ = require('lodash');
+var Highcharts = require('highcharts');
 
 module.exports = {
     initComponent: initComponent
 };
 
-function initComponent(appModule) {
-    appModule.component('ageChart', {
-        template: '<div id="age"></div>',
+function initComponent(app) {
+    app.component('ageChart', {
         controller: AgeChartController,
+        template: '<div id="age"></div>',
         require: {
             parent: '^menu'
         },
         bindings: {
+            chartOption: '<',
+            titleChar: '<',
             data: '<'
         }
     });
+}
 
-    var chartOption = {
-        chart: {
-            plotBackgroundColor: null,
-            plotBorderWidth: null,
-            plotShadow: false,
-            type: 'pie',
-            width: 180,
-            height: 100
-        },
-        credits: {
-            enabled: false
-        },
-        title: {
-            text: 'A',
-            verticalAlign: 'middle',
-            y: 6
-        },
-        tooltip: { enabled: false },
-        plotOptions: {
-            allowPointSelect: false,
-            series: {
-                dataLabels: { enabled: false },
-                states: {
-                    hover: {
-                        enabled: false
-                    }
-                }
+AgeChartController.$inject = ['$timeout'];
+
+function AgeChartController($timeout) {
+    this.$onInit = function () {
+        this.chartOption.title.text = this.titleChar;
+        this.chartOption.series[0].data = this.data;
+        this.chartOption.chart.events = {
+            click: () => {
+                $timeout(() => {
+                    this.parent.selectChart('age');
+                });
             }
-        },
-        series: [{
-            showInLegend: false,
-            size: '88%',
-            innerSize: '75%', 
-            data: []
-        }]
+        };
+        Highcharts.chart('age', this.chartOption);
     };
-
-    AgeChartController.$inject = ['$timeout'];
-
-    function AgeChartController($timeout) {
-        this.$onInit = function () {
-            chartOption.series[0].data = this.data;
-            chartOption.chart.events = {
-                click: () => {
-                    $timeout(() => {
-                        this.parent.selectChart('age');
-                    });
-                }
-            }
-            Highcharts.chart('age', chartOption);
-        }
-    }
 }
