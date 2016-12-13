@@ -4,14 +4,14 @@
 	data-selected-chart="$ctrl.selectedChart">
 </filter-menu>
 <div class="chart-wrapper">
-    <age-chart
-		data-chart-option="$ctrl.chartOption"
-        data-title-char="A"
-    	data="$ctrl.ageChartData">
-    </age-chart>
-    <gender-chart
-    	data-chart-option="$ctrl.chartOption"
-        data-title-char="G"
-    	data="$ctrl.genderChartData">
-    </gender-chart>
+    <chart
+        data-chart-title="age"
+        data-chart-option="$ctrl.chartOption"
+    	data-chart-data="$ctrl.ageChartData">
+    </chart>
+    <chart
+        data-chart-title="sex"
+        data-chart-option="$ctrl.chartOption"
+    	data-chart-data="$ctrl.genderChartData">
+    </chart>
 </div> 
