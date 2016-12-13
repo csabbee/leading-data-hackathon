@@ -26,6 +26,7 @@ function ChartController($element, $timeout) {
 
     var chartOption = {
         chart: {
+            backgroundColor: 'transparent',
             plotBackgroundColor: 'transparent',
             plotBorderWidth: 0,
             plotShadow: false,
