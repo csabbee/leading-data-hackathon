@@ -31,7 +31,7 @@ function initComponent(appModule) {
             enabled: false
         },
         title: {
-            text: 'Age',
+            text: 'A',
             verticalAlign: 'middle',
             y: 6
         },
