@@ -53,8 +53,8 @@ function MenuController() {
             },
             series: [{
                 showInLegend: false,
-                size: '88%',
-                innerSize: '75%',
+                size: '95%',
+                innerSize: '80%',
                 dataLabels: {
                     enabled: false
                 }, 
