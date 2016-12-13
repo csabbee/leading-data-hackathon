@@ -22,46 +22,6 @@ function MenuController() {
     this.$onInit = function () {
         this.selectedChart = '';
 
-        this.chartOption = {
-            chart: {
-                plotBackgroundColor: null,
-                plotBorderWidth: null,
-                plotShadow: false,
-                type: 'pie',
-                width: 100,
-                height: 100
-            },
-            credits: {
-                enabled: false
-            },
-            title: {
-                text: '',
-                verticalAlign: 'middle',
-                y: 6
-            },
-            tooltip: { enabled: false },
-            plotOptions: {
-                allowPointSelect: false,
-                series: {
-                    dataLabels: { enabled: false },
-                    states: {
-                        hover: {
-                            enabled: false
-                        }
-                    }
-                }
-            },
-            series: [{
-                showInLegend: false,
-                size: '95%',
-                innerSize: '80%',
-                dataLabels: {
-                    enabled: false
-                }, 
-                data: []
-            }]
-        };
-
         // init data sets
 
         var genderChartData = [

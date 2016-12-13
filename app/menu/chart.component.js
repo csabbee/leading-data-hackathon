@@ -10,7 +10,6 @@ function initComponent(app) {
     app.component('chart', {
         bindings: {
             chartTitle: '@',
-            chartOption: '<',
             chartData: '<'
         },
         require: {
@@ -24,11 +23,55 @@ function initComponent(app) {
 ChartController.$inject = ['$element', '$timeout'];
 
 function ChartController($element, $timeout) {
+
+    var chartOption = {
+        chart: {
+            plotBackgroundColor: null,
+            plotBorderWidth: null,
+            plotShadow: false,
+            type: 'pie',
+            width: 100,
+            height: 100
+        },
+        credits: {
+            enabled: false
+        },
+        title: {
+            text: '',
+            verticalAlign: 'middle',
+            y: 6
+        },
+        tooltip: {
+            enabled: false
+        },
+        plotOptions: {
+            allowPointSelect: false,
+            series: {
+                dataLabels: {
+                    enabled: false
+                },
+                states: {
+                    hover: {
+                        enabled: false
+                    }
+                }
+            }
+        },
+        series: [{
+            showInLegend: false,
+            size: '95%',
+            innerSize: '80%',
+            dataLabels: {
+                enabled: false
+            }, 
+            data: []
+        }]
+    };
+
     this.$onInit = function () {
-        var char = this.chartTitle[0].toUpperCase();
-        this.chartOption.title.text = char;
-        this.chartOption.series[0].data = this.chartData;
-        this.chartOption.chart.events = {
+        chartOption.title.text = this.chartTitle[0].toUpperCase();
+        chartOption.series[0].data = this.chartData;
+        chartOption.chart.events = {
             click: () => {
                 $timeout(() => {
                     this.parent.selectChart(this.chartTitle);
@@ -36,7 +79,9 @@ function ChartController($element, $timeout) {
             }
         };
     };
+
     this.$postLink = function () {
-        Highcharts.chart($element[0], this.chartOption);
+        Highcharts.chart($element[0], chartOption);
     };
+
 }
