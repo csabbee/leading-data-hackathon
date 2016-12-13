@@ -12,7 +12,7 @@ function initComponent(app) {
             parent: '^menu'
         },
         bindings: {
-            chartTitle: '@',
+            chartTitle: '<',
             chartData: '<'
         },
         template: '<div id="{{ $ctrl.chartTitle }}"></div>',

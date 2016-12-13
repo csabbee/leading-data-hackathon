@@ -4,12 +4,8 @@
 	data-selected-chart="$ctrl.selectedChart">
 </filter-menu>
 <div class="chart-wrapper">
-    <chart
-        data-chart-title="age"
-    	data-chart-data="$ctrl.ageChartData">
-    </chart>
-    <chart
-        data-chart-title="sex"
-    	data-chart-data="$ctrl.genderChartData">
+    <chart ng-repeat="property in $ctrl.properties"
+        data-chart-title="property.title"
+    	data-chart-data="property.data">
     </chart>
 </div> 
