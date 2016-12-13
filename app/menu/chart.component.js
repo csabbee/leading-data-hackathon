@@ -26,8 +26,8 @@ function ChartController($element, $timeout) {
 
     var chartOption = {
         chart: {
-            plotBackgroundColor: null,
-            plotBorderWidth: null,
+            plotBackgroundColor: 'transparent',
+            plotBorderWidth: 0,
             plotShadow: false,
             type: 'pie',
             width: 100,
@@ -45,7 +45,6 @@ function ChartController($element, $timeout) {
             enabled: false
         },
         plotOptions: {
-            allowPointSelect: false,
             series: {
                 dataLabels: {
                     enabled: false
@@ -58,7 +57,6 @@ function ChartController($element, $timeout) {
             }
         },
         series: [{
-            showInLegend: false,
             size: '95%',
             innerSize: '80%',
             dataLabels: {
