@@ -31,12 +31,20 @@ function DashboardController() {
         {
             name: 'telekom',
             data: require('./telekom_crm_msc_weekly.json')
-        },
-        {
+        }, {
             name: 'poi',
             data: reverseCoordinates(require('./poi-geo-data.json'))
         }
     ];
+
+    // [ [<feature.property>, <title>], .. ]
+    this.selections = [
+        ['crm_age', 'age'],
+        ['crm_sex', 'sex'],
+        ['crm_arpu', 'quality'],
+        ['crm_category', 'category'],
+        ['msc_type', 'type']
+    ]
 
     this.filter = ['any'];
     this.updateFilter = function (newFilter) {

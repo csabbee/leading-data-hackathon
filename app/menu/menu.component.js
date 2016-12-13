@@ -11,7 +11,8 @@ function initComponent(app) {
             parent: '^dashboard'
         },
         bindings: {
-            sourceData: '<'
+            sourceData: '<',
+            selections: '<'
         },
         templateUrl: 'menu/menu.html',
         controller: MenuController
@@ -19,7 +20,6 @@ function initComponent(app) {
 }
 
 function MenuController() {
-
     var colorPalette = [
         '#F47936',
         '#3F89E7',
@@ -31,17 +31,13 @@ function MenuController() {
     this.$onInit = function () {
         this.selectedChart = '';
 
-        var properties = [
-            {
-                name: 'crm_age',
-                title: 'age',
-                data: []
-            }, {
-                name: 'crm_sex',
-                title: 'sex',
+        var properties = _.map(this.selections, selection => {
+            return {
+                name: selection[0],
+                title: selection[1],
                 data: []
             }
-        ];
+        });
 
         _.map(this.sourceData[0].data.data.features, function (feature) {
             _.map(properties, function (property, index) {
