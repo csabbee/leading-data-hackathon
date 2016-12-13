@@ -8,12 +8,12 @@ module.exports = {
 
 function initComponent(app) {
     app.component('chart', {
+        require: {
+            parent: '^menu'
+        },
         bindings: {
             chartTitle: '@',
             chartData: '<'
-        },
-        require: {
-            parent: '^menu'
         },
         template: '<div id="{{ $ctrl.chartTitle }}"></div>',
         controller: ChartController

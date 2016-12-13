@@ -7,8 +7,6 @@ module.exports = {
 
 function initComponent(app) {
     app.component('mapbox', {
-        templateUrl: 'mapbox.html',
-        controller: MapboxController,
         require: {
             parent: '^dashboard'
         },
@@ -16,7 +14,9 @@ function initComponent(app) {
             mapboxConfig: '<',
             sourceData: '<',
             filter: '<'
-        }
+        },
+        templateUrl: 'mapbox.html',
+        controller: MapboxController
     });
 }
 

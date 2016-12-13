@@ -7,14 +7,14 @@ module.exports = {
 
 function initComponent(app) {
     app.component('menu', {
-        templateUrl: 'menu/menu.html',
-        controller: MenuController,
         require: {
             parent: '^dashboard'
         },
         bindings: {
             sourceData: '<'
-        }
+        },
+        templateUrl: 'menu/menu.html',
+        controller: MenuController
     });
 }
 

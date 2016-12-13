@@ -7,14 +7,14 @@ module.exports = {
 
 function initComponent(app) {
     app.component('filterMenu', {
-        templateUrl: 'menu/filter-menu.html',
-        controller: FilterMenuController,
+        require: {
+            parent: '^menu'
+        },
         bindings: {
             selectedChart: '<'
         },
-        require: {
-            parent: '^menu'
-        }
+        templateUrl: 'menu/filter-menu.html',
+        controller: FilterMenuController
     });
 }
 
