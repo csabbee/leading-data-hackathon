@@ -23,49 +23,7 @@ function initComponent(app) {
 ChartController.$inject = ['$element', '$timeout'];
 
 function ChartController($element, $timeout) {
-
-    var chartOption = {
-        chart: {
-            backgroundColor: 'transparent',
-            plotBackgroundColor: 'transparent',
-            plotBorderWidth: 0,
-            plotShadow: false,
-            type: 'pie',
-            width: 100,
-            height: 100
-        },
-        credits: {
-            enabled: false
-        },
-        title: {
-            text: '',
-            verticalAlign: 'middle',
-            y: 6
-        },
-        tooltip: {
-            enabled: false
-        },
-        plotOptions: {
-            series: {
-                dataLabels: {
-                    enabled: false
-                },
-                states: {
-                    hover: {
-                        enabled: false
-                    }
-                }
-            }
-        },
-        series: [{
-            size: '95%',
-            innerSize: '80%',
-            dataLabels: {
-                enabled: false
-            }, 
-            data: []
-        }]
-    };
+    var chartOption = require('./chart-options.json');
 
     this.$onInit = function () {
         chartOption.title.text = this.chartTitle[0].toUpperCase();
